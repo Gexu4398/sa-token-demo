@@ -24,14 +24,10 @@ public class WebCorsConfig implements WebMvcConfigurer {
 
     return new SaServletFilter()
         .addInclude("/**")
-        .addExclude("/sso/**",
-            "/debug/**",
-            "/sa-res/**",
+        .addExclude(
             "/swagger-ui/**",
             "/v3/api-docs/**",
-            "/webjars/**",
             "/swagger-ui.html",
-            "/doc.html",
             "/favicon.ico")
         .setBeforeAuth(obj -> {
           SaHolder.getResponse()
