@@ -1,5 +1,7 @@
 package com.gregory.satokendemo.bizservice.util;
 
+import static de.mkammerer.argon2.Argon2Factory.Argon2Types.ARGON2id;
+
 import de.mkammerer.argon2.Argon2;
 import de.mkammerer.argon2.Argon2Factory;
 import jakarta.annotation.Nonnull;
@@ -7,8 +9,7 @@ import jakarta.annotation.Nonnull;
 public class Argon2CustomUtil {
 
   // hashLength = 32, memory = 7168 KB
-  private static final Argon2 argon2 = Argon2Factory.create(
-      Argon2Factory.Argon2Types.ARGON2id, 32, 7168);
+  private static final Argon2 argon2 = Argon2Factory.create(ARGON2id, 32, 7168);
 
   // hashIterations
   private static final int ITERATIONS = 5;
