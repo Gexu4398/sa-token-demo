@@ -90,13 +90,13 @@
       <artifactId>sa-token-spring-boot3-starter</artifactId>
     </dependency>
     <dependency>
-      <groupId>cn.dev33</groupId>
-      <artifactId>sa-token-sso</artifactId>
-    </dependency>
-    <dependency>
       <groupId>com.gregory.satokendemo</groupId>
       <artifactId>biz-model</artifactId>
       <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>de.mkammerer</groupId>
+      <artifactId>argon2-jvm</artifactId>
     </dependency>
   </dependencies>
 

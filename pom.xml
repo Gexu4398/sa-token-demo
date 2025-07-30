@@ -51,7 +51,8 @@
     <hibernate-platform.version>7.0.8.Final</hibernate-platform.version>
     <jandex.version>3.3.1</jandex.version>
     <jakarta.persistence-api.version>3.2.0</jakarta.persistence-api.version>
-    <sa-token-spring-boot3-starter.version>1.44.0</sa-token-spring-boot3-starter.version>
+    <sa-token.version>1.44.0</sa-token.version>
+    <argon2-jvm.version>2.12</argon2-jvm.version>
     <maven.build.timestamp.format>yyyMMddHHmmss</maven.build.timestamp.format>
   </properties>
 
@@ -139,12 +140,12 @@
       <dependency>
         <groupId>cn.dev33</groupId>
         <artifactId>sa-token-spring-boot3-starter</artifactId>
-        <version>${sa-token-spring-boot3-starter.version}</version>
+        <version>${sa-token.version}</version>
       </dependency>
       <dependency>
-        <groupId>cn.dev33</groupId>
-        <artifactId>sa-token-sso</artifactId>
-        <version>${sa-token-spring-boot3-starter.version}</version>
+        <groupId>de.mkammerer</groupId>
+        <artifactId>argon2-jvm</artifactId>
+        <version>${argon2-jvm.version}</version>
       </dependency>
     </dependencies>
   </dependencyManagement>

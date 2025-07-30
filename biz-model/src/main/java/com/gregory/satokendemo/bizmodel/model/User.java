@@ -1,5 +1,6 @@
 package com.gregory.satokendemo.bizmodel.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -7,9 +8,11 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Index;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.Table;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Objects;
@@ -32,8 +35,20 @@ import org.hibernate.annotations.UpdateTimestamp;
 @ToString
 @Entity
 @Builder
+@Table(
+    name = "user",
+    indexes = {
+        @Index(name = "idx_user_username", columnList = "username")
+    }
+)
 @Schema(description = "用户")
 public class User {
+
+  public final static String STATUS_NORMAL = "normal";
+
+  public final static String STATUS_LOCKED = "locked";
+
+  public final static String STATUS_DISABLE = "disable";
 
   @Id
   @GeneratedValue(strategy = GenerationType.UUID)
@@ -48,11 +63,11 @@ public class User {
   @Schema(description = "密码")
   private String password;
 
-  @Column
+  @Column(name = "first_name")
   @Schema(description = "姓")
   private String firstName;
 
-  @Column
+  @Column(name = "last_name")
   @Schema(description = "名")
   private String lastName;
 
@@ -60,22 +75,24 @@ public class User {
   @Schema(description = "邮箱")
   private String email;
 
-  @Column
+  @Column(name = "phone_number", length = 50)
   @Schema(description = "手机号码")
   private String phoneNumber;
 
-  @Schema(description = "是否启用")
+  @Column(nullable = false)
+  @Schema(description = "是否启用", defaultValue = "true")
   private boolean enabled = true;
 
-  @Column(nullable = false)
+  @Column(nullable = false, length = 50)
   @Schema(description = "状态")
-  private String status;
+  private String status = STATUS_NORMAL;
 
   @ManyToMany(fetch = FetchType.LAZY)
   @JoinTable(name = "user_role",
       joinColumns = @JoinColumn(name = "user_id"),
       inverseJoinColumns = @JoinColumn(name = "role_id"))
   @Exclude
+  @JsonIgnore
   private Set<Role> roles = new HashSet<>();
 
   @ManyToMany(fetch = FetchType.LAZY)
@@ -83,6 +100,7 @@ public class User {
       joinColumns = @JoinColumn(name = "user_id"),
       inverseJoinColumns = @JoinColumn(name = "group_id"))
   @Exclude
+  @JsonIgnore
   private Set<Group> groups = new HashSet<>();
 
   @Column

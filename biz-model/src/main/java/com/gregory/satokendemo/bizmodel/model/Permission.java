@@ -30,7 +30,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 @Entity
 @Builder
 @Schema(description = "角色权限范围")
-public class RoleScope {
+public class Permission {
 
   @Id
   @GeneratedValue(strategy = GenerationType.UUID)
@@ -45,7 +45,7 @@ public class RoleScope {
   @Schema(description = "角色权限范围描述")
   private String description;
 
-  @ManyToMany(mappedBy = "roleScopes")
+  @ManyToMany(mappedBy = "permissions")
   @Exclude
   private Set<Role> roles = new HashSet<>();
 
@@ -66,7 +66,7 @@ public class RoleScope {
     if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) {
       return false;
     }
-    RoleScope v = (RoleScope) o;
+    Permission v = (Permission) o;
     return id != null && Objects.equals(id, v.id);
   }
 

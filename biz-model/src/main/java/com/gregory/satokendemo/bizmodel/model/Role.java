@@ -49,7 +49,7 @@ public class Role {
   private String description;
 
   @Column(nullable = false)
-  @Schema(description = "是否启用")
+  @Schema(description = "是否启用", defaultValue = "true")
   private boolean enabled = true;
 
   @ManyToMany(mappedBy = "roles", fetch = FetchType.LAZY)
@@ -58,12 +58,12 @@ public class Role {
 
   @ManyToMany(fetch = FetchType.LAZY)
   @JoinTable(
-      name = "role_rolescope",
+      name = "role_permission",
       joinColumns = @JoinColumn(name = "role_id"),
-      inverseJoinColumns = @JoinColumn(name = "rolescope_id")
+      inverseJoinColumns = @JoinColumn(name = "permission_id")
   )
   @Exclude
-  private Set<RoleScope> roleScopes = new HashSet<>();
+  private Set<Permission> permissions = new HashSet<>();
 
   @Column
   @CreationTimestamp

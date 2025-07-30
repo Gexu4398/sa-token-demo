@@ -38,7 +38,7 @@ public class Group {
   @Column(nullable = false, unique = true)
   private String name;
 
-  @Column
+  @Column(name = "parent_id")
   private String parentId;
 
   @Column(columnDefinition = "text")
