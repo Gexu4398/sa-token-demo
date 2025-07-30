@@ -10,12 +10,14 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.Table;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Builder.Default;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -32,8 +34,9 @@ import org.hibernate.annotations.UpdateTimestamp;
 @ToString
 @Entity
 @Builder
+@Table(name = "sys_role")
 @Schema(description = "角色")
-public class Role {
+public class SysRole {
 
   @Id
   @GeneratedValue(strategy = GenerationType.UUID)
@@ -50,26 +53,29 @@ public class Role {
 
   @Column(nullable = false)
   @Schema(description = "是否启用", defaultValue = "true")
+  @Default
   private boolean enabled = true;
 
   @ManyToMany(mappedBy = "roles", fetch = FetchType.LAZY)
   @Exclude
-  private Set<User> users = new HashSet<>();
+  @Default
+  private Set<UserEntity> userEntities = new HashSet<>();
 
   @ManyToMany(fetch = FetchType.LAZY)
   @JoinTable(
-      name = "role_permission",
-      joinColumns = @JoinColumn(name = "role_id"),
-      inverseJoinColumns = @JoinColumn(name = "permission_id")
+      name = "sys_role_sys_permission",
+      joinColumns = @JoinColumn(name = "sys_role_id"),
+      inverseJoinColumns = @JoinColumn(name = "sys_permission_id")
   )
   @Exclude
-  private Set<Permission> permissions = new HashSet<>();
+  @Default
+  private Set<SysPermission> permissions = new HashSet<>();
 
-  @Column
+  @Column(name = "created_at")
   @CreationTimestamp
   private LocalDateTime createdAt;
 
-  @Column
+  @Column(name = "updated_at")
   @UpdateTimestamp
   private LocalDateTime updatedAt;
 
@@ -82,7 +88,7 @@ public class Role {
     if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) {
       return false;
     }
-    Role v = (Role) o;
+    SysRole v = (SysRole) o;
     return id != null && Objects.equals(id, v.id);
   }
 

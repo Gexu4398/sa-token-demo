@@ -2,7 +2,7 @@ package com.gregory.satokendemo.bizservice.controller;
 
 import cn.dev33.satoken.stp.SaTokenInfo;
 import cn.dev33.satoken.stp.StpUtil;
-import com.gregory.satokendemo.bizmodel.repository.UserRepository;
+import com.gregory.satokendemo.bizmodel.repository.SysUserRepository;
 import com.gregory.satokendemo.bizservice.model.LoginRequest;
 import com.gregory.satokendemo.bizservice.util.Argon2CustomUtil;
 import io.swagger.v3.oas.annotations.Operation;
@@ -24,12 +24,12 @@ import org.springframework.web.server.ResponseStatusException;
 @Validated
 public class LoginAuthController {
 
-  private final UserRepository userRepository;
+  private final SysUserRepository sysUserRepository;
 
   @Autowired
-  public LoginAuthController(UserRepository userRepository) {
+  public LoginAuthController(SysUserRepository sysUserRepository) {
 
-    this.userRepository = userRepository;
+    this.sysUserRepository = sysUserRepository;
   }
 
   @Operation(summary = "登录")
@@ -40,7 +40,7 @@ public class LoginAuthController {
 
     final var hash = Argon2CustomUtil.hash(password);
 
-    final var user = userRepository
+    final var user = sysUserRepository
         .findByUsernameAndPassword(loginRequest.getUsername(), hash)
         .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "账号或密码错误"));
 

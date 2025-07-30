@@ -19,6 +19,7 @@ import java.util.Objects;
 import java.util.Set;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Builder.Default;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -36,13 +37,13 @@ import org.hibernate.annotations.UpdateTimestamp;
 @Entity
 @Builder
 @Table(
-    name = "user",
+    name = "user_entity",
     indexes = {
-        @Index(name = "idx_user_username", columnList = "username")
+        @Index(name = "idx_user_entity_username", columnList = "username")
     }
 )
 @Schema(description = "用户")
-public class User {
+public class UserEntity {
 
   public final static String STATUS_NORMAL = "normal";
 
@@ -81,33 +82,37 @@ public class User {
 
   @Column(nullable = false)
   @Schema(description = "是否启用", defaultValue = "true")
+  @Default
   private boolean enabled = true;
 
   @Column(nullable = false, length = 50)
   @Schema(description = "状态")
+  @Default
   private String status = STATUS_NORMAL;
 
   @ManyToMany(fetch = FetchType.LAZY)
-  @JoinTable(name = "user_role",
-      joinColumns = @JoinColumn(name = "user_id"),
-      inverseJoinColumns = @JoinColumn(name = "role_id"))
+  @JoinTable(name = "user_entity_sys_role",
+      joinColumns = @JoinColumn(name = "user_entity_id"),
+      inverseJoinColumns = @JoinColumn(name = "sys_role_id"))
   @Exclude
   @JsonIgnore
-  private Set<Role> roles = new HashSet<>();
+  @Default
+  private Set<SysRole> roles = new HashSet<>();
 
   @ManyToMany(fetch = FetchType.LAZY)
-  @JoinTable(name = "user_group",
-      joinColumns = @JoinColumn(name = "user_id"),
-      inverseJoinColumns = @JoinColumn(name = "group_id"))
+  @JoinTable(name = "user_entity_sys_group",
+      joinColumns = @JoinColumn(name = "user_entity_id"),
+      inverseJoinColumns = @JoinColumn(name = "sys_group_id"))
   @Exclude
   @JsonIgnore
-  private Set<Group> groups = new HashSet<>();
+  @Default
+  private Set<SysGroup> groups = new HashSet<>();
 
-  @Column
+  @Column(name = "created_at")
   @CreationTimestamp
   private LocalDateTime createdAt;
 
-  @Column
+  @Column(name = "updated_at")
   @UpdateTimestamp
   private LocalDateTime updatedAt;
 
@@ -120,7 +125,7 @@ public class User {
     if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) {
       return false;
     }
-    User v = (User) o;
+    UserEntity v = (UserEntity) o;
     return id != null && Objects.equals(id, v.id);
   }
 

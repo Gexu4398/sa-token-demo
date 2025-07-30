@@ -6,7 +6,53 @@
                    objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
 
   <changeSet id="1753859986242-1" author="singhand">
-    <createTable tableName="user">
+    <createTable tableName="sys_group">
+      <column name="id" type="varchar(255)">
+        <constraints primaryKey="true" nullable="false"/>
+      </column>
+      <column name="name" type="varchar(255)">
+        <constraints nullable="false" unique="true"/>
+      </column>
+      <column name="parent_id" type="varchar(255)"/>
+      <column name="description" type="text"/>
+      <column name="created_at" type="TIMESTAMP WITHOUT TIME ZONE"/>
+      <column name="updated_at" type="TIMESTAMP WITHOUT TIME ZONE"/>
+    </createTable>
+  </changeSet>
+
+  <changeSet id="1753859986242-2" author="singhand">
+    <createTable tableName="sys_role">
+      <column name="id" type="varchar(255)">
+        <constraints primaryKey="true" nullable="false"/>
+      </column>
+      <column name="name" type="varchar(255)">
+        <constraints nullable="false" unique="true"/>
+      </column>
+      <column name="description" type="text"/>
+      <column name="enabled" type="boolean" defaultValue="true">
+        <constraints nullable="false"/>
+      </column>
+      <column name="created_at" type="TIMESTAMP WITHOUT TIME ZONE"/>
+      <column name="updated_at" type="TIMESTAMP WITHOUT TIME ZONE"/>
+    </createTable>
+  </changeSet>
+
+  <changeSet id="1753859986242-3" author="singhand">
+    <createTable tableName="sys_permission">
+      <column name="id" type="varchar(255)">
+        <constraints primaryKey="true" nullable="false"/>
+      </column>
+      <column name="name" type="varchar(255)">
+        <constraints nullable="false" unique="true"/>
+      </column>
+      <column name="description" type="text"/>
+      <column name="created_at" type="TIMESTAMP WITHOUT TIME ZONE"/>
+      <column name="updated_at" type="TIMESTAMP WITHOUT TIME ZONE"/>
+    </createTable>
+  </changeSet>
+
+  <changeSet id="1753859986242-4" author="singhand">
+    <createTable tableName="user_entity">
       <column name="id" type="varchar(255)">
         <constraints primaryKey="true" nullable="false"/>
       </column>
@@ -32,56 +78,84 @@
       <column name="updated_at" type="TIMESTAMP WITHOUT TIME ZONE"/>
     </createTable>
 
-    <createIndex indexName="idx_user_username" tableName="user">
+    <createIndex indexName="idx_user_entity_username" tableName="user_entity">
       <column name="username"/>
     </createIndex>
   </changeSet>
 
-  <changeSet id="1753862589674-1" author="singhand">
-    <createTable tableName="role">
-      <column name="id" type="varchar(255)">
-        <constraints primaryKey="true" nullable="false"/>
-      </column>
-      <column name="name" type="varchar(255)">
-        <constraints nullable="false" unique="true"/>
-      </column>
-      <column name="description" type="text"/>
-      <column name="enabled" type="boolean" defaultValue="true">
+  <changeSet id="1753859986242-5" author="singhand">
+    <createTable tableName="user_entity_sys_role">
+      <column name="user_entity_id" type="varchar(255)">
         <constraints nullable="false"/>
       </column>
-      <column name="created_at" type="TIMESTAMP WITHOUT TIME ZONE"/>
-      <column name="updated_at" type="TIMESTAMP WITHOUT TIME ZONE"/>
+      <column name="sys_role_id" type="varchar(255)">
+        <constraints nullable="false"/>
+      </column>
     </createTable>
+
+    <addPrimaryKey columnNames="user_entity_id, sys_role_id" tableName="user_entity_sys_role"
+                   constraintName="pk_user_entity_sys_role"/>
+
+    <addForeignKeyConstraint baseColumnNames="user_entity_id" baseTableName="user_entity_sys_role"
+                             constraintName="fk_user_entity_sys_role_user_entity" deferrable="false"
+                             initiallyDeferred="false"
+                             referencedColumnNames="id" referencedTableName="user_entity"/>
+
+    <addForeignKeyConstraint baseColumnNames="sys_role_id" baseTableName="user_entity_sys_role"
+                             constraintName="fk_user_entity_sys_role_sys_role" deferrable="false"
+                             initiallyDeferred="false"
+                             referencedColumnNames="id" referencedTableName="sys_role"/>
   </changeSet>
 
-  <changeSet id="1753862727861-1" author="singhand">
-    <createTable tableName="permission">
-      <column name="id" type="varchar(255)">
-        <constraints primaryKey="true" nullable="false"/>
+  <changeSet id="1753859986242-6" author="singhand">
+    <createTable tableName="user_entity_sys_group">
+      <column name="user_entity_id" type="varchar(255)">
+        <constraints nullable="false"/>
       </column>
-      <column name="name" type="varchar(255)">
-        <constraints nullable="false" unique="true"/>
+      <column name="sys_group_id" type="varchar(255)">
+        <constraints nullable="false"/>
       </column>
-      <column name="description" type="text"/>
-      <column name="created_at" type="TIMESTAMP WITHOUT TIME ZONE"/>
-      <column name="updated_at" type="TIMESTAMP WITHOUT TIME ZONE"/>
     </createTable>
+
+    <addPrimaryKey columnNames="user_entity_id, sys_group_id" tableName="user_entity_sys_group"
+                   constraintName="pk_user_entity_sys_group"/>
+
+    <addForeignKeyConstraint baseColumnNames="user_entity_id" baseTableName="user_entity_sys_group"
+                             constraintName="fk_user_entity_sys_group_user_entity"
+                             deferrable="false"
+                             initiallyDeferred="false"
+                             referencedColumnNames="id" referencedTableName="user_entity"/>
+
+    <addForeignKeyConstraint baseColumnNames="sys_group_id" baseTableName="user_entity_sys_group"
+                             constraintName="fk_user_entity_sys_group_sys_group" deferrable="false"
+                             initiallyDeferred="false"
+                             referencedColumnNames="id" referencedTableName="sys_group"/>
   </changeSet>
 
-  <changeSet id="1753862909855-1" author="singhand">
-    <createTable tableName="group">
-      <column name="id" type="varchar(255)">
-        <constraints primaryKey="true" nullable="false"/>
+  <changeSet id="1753859986242-7" author="singhand">
+    <createTable tableName="sys_role_sys_permission">
+      <column name="sys_role_id" type="varchar(255)">
+        <constraints nullable="false"/>
       </column>
-      <column name="name" type="varchar(255)">
-        <constraints nullable="false" unique="true"/>
+      <column name="sys_permission_id" type="varchar(255)">
+        <constraints nullable="false"/>
       </column>
-      <column name="parent_id" type="varchar(255)"/>
-      <column name="description" type="text"/>
-      <column name="created_at" type="TIMESTAMP WITHOUT TIME ZONE"/>
-      <column name="updated_at" type="TIMESTAMP WITHOUT TIME ZONE"/>
     </createTable>
-  </changeSet>
 
+    <addPrimaryKey columnNames="sys_role_id, sys_permission_id" tableName="sys_role_sys_permission"
+                   constraintName="pk_sys_role_sys_permission"/>
+
+    <addForeignKeyConstraint baseColumnNames="sys_role_id" baseTableName="sys_role_sys_permission"
+                             constraintName="fk_sys_role_sys_permission_sys_role" deferrable="false"
+                             initiallyDeferred="false"
+                             referencedColumnNames="id" referencedTableName="sys_role"/>
+
+    <addForeignKeyConstraint baseColumnNames="sys_permission_id"
+                             baseTableName="sys_role_sys_permission"
+                             constraintName="fk_sys_role_sys_permission_sys_permission"
+                             deferrable="false"
+                             initiallyDeferred="false"
+                             referencedColumnNames="id" referencedTableName="sys_permission"/>
+  </changeSet>
 
 </databaseChangeLog>

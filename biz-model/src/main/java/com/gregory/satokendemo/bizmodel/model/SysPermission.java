@@ -1,18 +1,20 @@
 package com.gregory.satokendemo.bizmodel.model;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
-import jakarta.persistence.ManyToMany;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Builder.Default;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -22,37 +24,40 @@ import org.hibernate.Hibernate;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
 @ToString
 @Entity
-public class Group {
+@Builder
+@Table(name = "sys_permission")
+@Schema(description = "角色权限范围")
+public class SysPermission {
 
   @Id
   @GeneratedValue(strategy = GenerationType.UUID)
+  @Schema(description = "角色权限范围ID")
   private String id;
 
   @Column(nullable = false, unique = true)
+  @Schema(description = "角色权限范围名称")
   private String name;
 
-  @Column(name = "parent_id")
-  private String parentId;
-
   @Column(columnDefinition = "text")
+  @Schema(description = "角色权限范围描述")
   private String description;
 
-  @ManyToMany(mappedBy = "groups", fetch = FetchType.LAZY)
+  @ManyToMany(mappedBy = "permissions")
   @Exclude
-  private Set<User> users = new HashSet<>();
+  @Default
+  private Set<SysRole> roles = new HashSet<>();
 
-  @Column
+  @Column(name = "created_at")
   @CreationTimestamp
   private LocalDateTime createdAt;
 
-  @Column
+  @Column(name = "updated_at")
   @UpdateTimestamp
   private LocalDateTime updatedAt;
 
@@ -65,7 +70,7 @@ public class Group {
     if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) {
       return false;
     }
-    Group v = (Group) o;
+    SysPermission v = (SysPermission) o;
     return id != null && Objects.equals(id, v.id);
   }
 
