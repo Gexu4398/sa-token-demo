@@ -1,5 +1,6 @@
 package com.gregory.satokendemo.bizmodel.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -51,6 +52,7 @@ public class ClientScope {
   @ManyToMany(mappedBy = "scopes")
   @Exclude
   @Default
+  @JsonIgnore
   private Set<SysRole> roles = new HashSet<>();
 
   @Column(name = "created_at")

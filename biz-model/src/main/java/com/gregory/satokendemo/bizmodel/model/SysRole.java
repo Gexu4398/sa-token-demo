@@ -1,5 +1,6 @@
 package com.gregory.satokendemo.bizmodel.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -59,6 +60,7 @@ public class SysRole {
   @ManyToMany(mappedBy = "roles", fetch = FetchType.LAZY)
   @Exclude
   @Default
+  @JsonIgnore
   private Set<UserEntity> users = new HashSet<>();
 
   @ManyToMany(fetch = FetchType.EAGER)
@@ -69,6 +71,7 @@ public class SysRole {
   )
   @Exclude
   @Default
+  @JsonIgnore
   private Set<ClientScope> scopes = new HashSet<>();
 
   @Column(name = "created_at")
