@@ -45,12 +45,19 @@ import org.hibernate.annotations.UpdateTimestamp;
 @Schema(description = "用户")
 public class UserEntity {
 
+  // 审核中
   public final static String STATUS_PENDING = "pending";
 
+  // 审核拒绝
+  public final static String STATUS_REJECTED = "rejected";
+
+  // 正常
   public final static String STATUS_NORMAL = "normal";
 
+  // 锁定
   public final static String STATUS_LOCKED = "locked";
 
+  // 停用
   public final static String STATUS_DISABLED = "disabled";
 
   @Id

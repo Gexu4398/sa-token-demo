@@ -2,6 +2,7 @@ package com.gregory.satokendemo.bizservice.service.impl;
 
 import cn.dev33.satoken.stp.SaTokenInfo;
 import cn.dev33.satoken.stp.StpUtil;
+import com.gregory.satokendemo.bizmodel.model.UserEntity;
 import com.gregory.satokendemo.bizmodel.repository.UserEntityRepository;
 import com.gregory.satokendemo.bizservice.service.LoginAuthService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +35,21 @@ public class LoginAuthServiceImpl implements LoginAuthService {
 
     if (!argon2PasswordEncoder.matches(password, user.getPassword())) {
       throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "账号或密码错误");
+    }
+
+    if (!user.isEnabled()) {
+      throw new ResponseStatusException(HttpStatus.FORBIDDEN, "账号已被停用");
+    }
+
+    switch (user.getStatus()) {
+      case UserEntity.STATUS_LOCKED ->
+          throw new ResponseStatusException(HttpStatus.FORBIDDEN, "账号已被锁定");
+      case UserEntity.STATUS_PENDING ->
+          throw new ResponseStatusException(HttpStatus.FORBIDDEN, "账号正在审核中");
+      case UserEntity.STATUS_DISABLED ->
+          throw new ResponseStatusException(HttpStatus.FORBIDDEN, "账号已停用");
+      case UserEntity.STATUS_REJECTED ->
+          throw new ResponseStatusException(HttpStatus.FORBIDDEN, "账号审核未通过");
     }
 
     StpUtil.login(user.getId());

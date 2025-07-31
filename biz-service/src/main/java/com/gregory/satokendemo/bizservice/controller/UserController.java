@@ -55,7 +55,7 @@ public class UserController {
 
   @SneakyThrows
   @PostMapping("/{id}:disable")
-  @Operation(summary = "禁用用户")
+  @Operation(summary = "停用用户")
   @SaCheckPermission("user:crud")
   @Transactional("bizTransactionManager")
   public void disableUser(@NotContainsSuperAdminUserId @PathVariable("id") List<String> ids) {
