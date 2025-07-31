@@ -36,7 +36,7 @@ public class UserController {
 
   @Operation(summary = "新建用户")
   @PostMapping
-  @SaCheckPermission("user:crud")
+//  @SaCheckPermission("user:crud")
   @Transactional("bizTransactionManager")
   public UserEntity addUser(@Valid @RequestBody NewUserRequest newUserRequest) {
 

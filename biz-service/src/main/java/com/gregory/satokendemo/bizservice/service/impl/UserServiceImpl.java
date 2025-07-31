@@ -60,7 +60,8 @@ public class UserServiceImpl implements UserService {
       throw new ResponseStatusException(HttpStatus.CONFLICT, "账号已存在");
     }
 
-    if (userEntityRepository.existsByEmail(newUserRequest.getEmail())) {
+    if (StrUtil.isNotBlank(newUserRequest.getEmail()) &&
+        userEntityRepository.existsByEmail(newUserRequest.getEmail())) {
       throw new ResponseStatusException(HttpStatus.CONFLICT, "邮箱已存在");
     }
 

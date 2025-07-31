@@ -1,0 +1,86 @@
+server:
+  port: 8082
+  error:
+    include-message: always
+    include-binding-errors: always
+    include-exception: false
+    # 如果前端请求带参 ?trace=true 则会显示 trace 字段
+    include-stacktrace: on_param
+  forward-headers-strategy: framework
+
+spring:
+  application:
+    name: sso-service
+  profiles:
+    active: @activatedProfile@
+  threads:
+    virtual:
+      enabled: true
+  jpa:
+    open-in-view: true
+  data:
+    redis:
+      database: 1
+      host: ${REDIS_HOST:localhost}
+      port: 6379
+      timeout: 10s
+      lettuce:
+        pool:
+          max-active: 200
+          max-wait: -1ms
+          max-idle: 10
+          min-idle: 0
+
+management:
+  endpoints:
+    access:
+      default: read_only
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+    oauth:
+      client-id: console-cli
+    tags-sorter: alpha
+    doc-expansion: alpha
+
+sa-token:
+  # token 名称（同时也是 cookie 名称）
+  token-name: satoken
+  # 指定 token 提交时的前缀
+  token-prefix: Bearer
+  # 指定 Cookie 模式下自动填充 token 提交前缀
+  cookie-auto-fill-prefix: true
+  # token 有效期（单位：秒） 默认30天，-1 代表永久有效
+  timeout: 1800
+  # token 最低活跃频率（单位：秒），如果 token 超过此时间没有访问系统就会被冻结，默认-1 代表不限制，永不冻结
+  active-timeout: 300
+  # 是否允许同一账号多地同时登录 （为 true 时允许一起登录, 为 false 时新登录挤掉旧登录）
+  is-concurrent: true
+  # 在多人登录同一账号时，是否共用一个 token （为 true 时所有登录共用一个 token, 为 false 时每次登录新建一个 token）
+  is-share: false
+  # token 风格（默认可取值：uuid、simple-uuid、random-32、random-64、random-128、tik）
+  token-style: random-32
+  # 是否输出操作日志
+  is-log: true
+  sso-server:
+    ticket-timeout: 300
+    clients:
+      sso-client:
+        client: console-cli
+        allow-url: "*"
+        secret-key: kQwIOrYvnXmSDkwEiFngrKidMcdrgKor
+
+app:
+  datasource:
+    biz:
+      url: jdbc:postgresql://${POSTGRESQL_HOST:localhost}:5432/sa
+      jdbcUrl: jdbc:postgresql://${POSTGRESQL_HOST:localhost}:5432/sa
+      username: root
+      password: ${POSTGRESQL_ROOT_PASSWORD:example}
+      driver-class-name: org.postgresql.Driver
+      hikari:
+        maximum-pool-size: 100
+        minimum-idle: 30
+      liquibase:
+        change-log: db/changelog/changelog-master.xml

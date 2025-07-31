@@ -19,6 +19,7 @@
   <modules>
     <module>biz-service</module>
     <module>biz-model</module>
+    <module>sso-service</module>
   </modules>
 
   <profiles>

@@ -1,10 +1,10 @@
-package com.gregory.satokendemo.bizservice.service.impl;
+package com.gregory.satokendemo.ssoservice.service.impl;
 
 import cn.dev33.satoken.stp.SaTokenInfo;
 import cn.dev33.satoken.stp.StpUtil;
 import com.gregory.satokendemo.bizmodel.model.UserEntity;
 import com.gregory.satokendemo.bizmodel.repository.UserEntityRepository;
-import com.gregory.satokendemo.bizservice.service.LoginAuthService;
+import com.gregory.satokendemo.ssoservice.service.SsoServerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.argon2.Argon2PasswordEncoder;
@@ -12,14 +12,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 @Service
-public class LoginAuthServiceImpl implements LoginAuthService {
+public class SsoServerServiceImpl implements SsoServerService {
 
   private final Argon2PasswordEncoder argon2PasswordEncoder;
 
   private final UserEntityRepository userEntityRepository;
 
   @Autowired
-  public LoginAuthServiceImpl(Argon2PasswordEncoder argon2PasswordEncoder,
+  public SsoServerServiceImpl(Argon2PasswordEncoder argon2PasswordEncoder,
       UserEntityRepository userEntityRepository) {
 
     this.argon2PasswordEncoder = argon2PasswordEncoder;
