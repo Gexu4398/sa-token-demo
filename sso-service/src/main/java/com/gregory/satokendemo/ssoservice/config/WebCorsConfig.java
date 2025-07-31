@@ -1,4 +1,4 @@
-package com.gregory.satokendemo.bizservice.config;
+package com.gregory.satokendemo.ssoservice.config;
 
 import cn.dev33.satoken.context.SaHolder;
 import cn.dev33.satoken.filter.SaServletFilter;
