@@ -147,6 +147,11 @@
         <artifactId>bcprov-jdk18on</artifactId>
         <version>${bcprov-jdk18on.version}</version>
       </dependency>
+      <dependency>
+        <groupId>cn.dev33</groupId>
+        <artifactId>sa-token-redis-template</artifactId>
+        <version>${sa-token.version}</version>
+      </dependency>
     </dependencies>
   </dependencyManagement>
 

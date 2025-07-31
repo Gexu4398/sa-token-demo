@@ -51,7 +51,7 @@ public class UserEntity {
 
   public final static String STATUS_LOCKED = "locked";
 
-  public final static String STATUS_DISABLE = "disable";
+  public final static String STATUS_DISABLED = "disabled";
 
   @Id
   @GeneratedValue(strategy = GenerationType.UUID)

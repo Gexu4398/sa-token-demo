@@ -11,3 +11,9 @@ services:
       - "5432:5432"
     volumes:
       - ./init-postgres:/docker-entrypoint-initdb.d
+
+  redis:
+    image: redis:8.0.3-alpine
+    restart: always
+    ports:
+      - "6379:6379"

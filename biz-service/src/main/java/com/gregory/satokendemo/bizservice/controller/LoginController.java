@@ -33,7 +33,7 @@ public class LoginController {
 
   @Operation(summary = "登录")
   @PostMapping("doLogin")
-  public String doLogin(@Valid @RequestBody LoginRequest loginRequest) {
+  public SaTokenInfo doLogin(@Valid @RequestBody LoginRequest loginRequest) {
 
     return loginAuthService.doLogin(loginRequest.getUsername(), loginRequest.getPassword());
   }

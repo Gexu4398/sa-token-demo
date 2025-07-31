@@ -9,6 +9,7 @@ import com.gregory.satokendemo.bizservice.model.NewUserRequest;
 import com.gregory.satokendemo.bizservice.model.RegisterUserRequest;
 import com.gregory.satokendemo.bizservice.service.UserService;
 import jakarta.annotation.Nonnull;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.argon2.Argon2PasswordEncoder;
@@ -36,6 +37,20 @@ public class UserServiceImpl implements UserService {
     this.userEntityRepository = userEntityRepository;
     this.sysGroupRepository = sysGroupRepository;
     this.sysRoleRepository = sysRoleRepository;
+  }
+
+  @Override
+  public UserEntity getUser(String id) {
+
+    return userEntityRepository.findById(id)
+        .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "用户不存在"));
+  }
+
+  @Override
+  public UserEntity getUserByName(String username) {
+
+    return userEntityRepository.findByUsername(username)
+        .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "用户不存在"));
   }
 
   @Override
@@ -109,5 +124,25 @@ public class UserServiceImpl implements UserService {
     }
 
     return userEntityRepository.save(ur);
+  }
+
+  @Override
+  public void enableUser(String id) {
+
+    final var user = getUser(id);
+    user.setEnabled(true);
+    user.setStatus(UserEntity.STATUS_NORMAL);
+    userEntityRepository.save(user);
+  }
+
+  @Override
+  public void disableUser(List<String> ids) {
+
+    final var userEntities = userEntityRepository.findAllById(ids);
+    userEntities.forEach(it -> {
+      it.setEnabled(false);
+      it.setStatus(UserEntity.STATUS_DISABLED);
+    });
+    userEntityRepository.saveAll(userEntities);
   }
 }

@@ -1,5 +1,6 @@
 package com.gregory.satokendemo.bizservice.service.impl;
 
+import cn.dev33.satoken.stp.SaTokenInfo;
 import cn.dev33.satoken.stp.StpUtil;
 import com.gregory.satokendemo.bizmodel.repository.UserEntityRepository;
 import com.gregory.satokendemo.bizservice.service.LoginAuthService;
@@ -25,7 +26,7 @@ public class LoginAuthServiceImpl implements LoginAuthService {
   }
 
   @Override
-  public String doLogin(String username, String password) {
+  public SaTokenInfo doLogin(String username, String password) {
 
     final var user = userEntityRepository
         .findByUsername(username)
@@ -37,6 +38,6 @@ public class LoginAuthServiceImpl implements LoginAuthService {
 
     StpUtil.login(user.getId());
 
-    return StpUtil.getTokenValueByLoginId(user.getId());
+    return StpUtil.getTokenInfo();
   }
 }
