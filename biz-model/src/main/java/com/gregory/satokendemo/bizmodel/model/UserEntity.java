@@ -62,7 +62,7 @@ public class UserEntity {
   @Schema(description = "用户名")
   private String username;
 
-  @Column(nullable = false)
+  @Column(nullable = false, columnDefinition = "text")
   @Schema(description = "密码")
   private String password;
 
