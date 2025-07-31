@@ -2,49 +2,38 @@ package com.gregory.satokendemo.bizservice.controller;
 
 import cn.dev33.satoken.stp.SaTokenInfo;
 import cn.dev33.satoken.stp.StpUtil;
-import com.gregory.satokendemo.bizmodel.repository.SysUserRepository;
 import com.gregory.satokendemo.bizservice.model.LoginRequest;
-import com.gregory.satokendemo.bizservice.util.Argon2CustomUtil;
+import com.gregory.satokendemo.bizservice.service.LoginAuthService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.server.ResponseStatusException;
 
-@Tag(name = "鉴权管理")
+@Tag(name = "用户认证")
 @RestController
-@RequestMapping("acc")
+@RequestMapping("login")
 @Validated
-public class LoginAuthController {
+public class LoginController {
 
-  private final SysUserRepository sysUserRepository;
+  private final LoginAuthService loginAuthService;
 
   @Autowired
-  public LoginAuthController(SysUserRepository sysUserRepository) {
+  public LoginController(LoginAuthService loginAuthService) {
 
-    this.sysUserRepository = sysUserRepository;
+    this.loginAuthService = loginAuthService;
   }
 
   @Operation(summary = "登录")
   @PostMapping("doLogin")
   public void doLogin(@Valid @RequestBody LoginRequest loginRequest) {
 
-    final var password = loginRequest.getPassword();
-
-    final var hash = Argon2CustomUtil.hash(password);
-
-    final var user = sysUserRepository
-        .findByUsernameAndPassword(loginRequest.getUsername(), hash)
-        .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "账号或密码错误"));
-
-    StpUtil.login(user.getId());
+    loginAuthService.doLogin(loginRequest.getUsername(), loginRequest.getPassword());
   }
 
   @Operation(summary = "是否登录")

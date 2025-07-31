@@ -45,6 +45,8 @@ import org.hibernate.annotations.UpdateTimestamp;
 @Schema(description = "用户")
 public class UserEntity {
 
+  public final static String STATUS_PENDING = "pending";
+
   public final static String STATUS_NORMAL = "normal";
 
   public final static String STATUS_LOCKED = "locked";
@@ -79,6 +81,10 @@ public class UserEntity {
   @Column(name = "phone_number", length = 50)
   @Schema(description = "手机号码")
   private String phoneNumber;
+
+  @Column
+  @Schema(description = "用户头像")
+  private String picture;
 
   @Column(nullable = false)
   @Schema(description = "是否启用", defaultValue = "true")
@@ -133,5 +139,17 @@ public class UserEntity {
   public int hashCode() {
 
     return getClass().hashCode();
+  }
+
+  public void addGroup(SysGroup sysGroup) {
+
+    getGroups().add(sysGroup);
+    sysGroup.getUsers().add(this);
+  }
+
+  public void addRole(SysRole sysRole) {
+
+    getRoles().add(sysRole);
+    sysRole.getUsers().add(this);
   }
 }

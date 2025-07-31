@@ -68,6 +68,7 @@
         <constraints unique="true"/>
       </column>
       <column name="phone_number" type="varchar(50)"/>
+      <column name="picture" type="varchar(255)"/>
       <column name="enabled" type="boolean" defaultValue="true">
         <constraints nullable="false"/>
       </column>

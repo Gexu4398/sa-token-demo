@@ -8,6 +8,7 @@ import cn.dev33.satoken.router.SaHttpMethod;
 import cn.dev33.satoken.router.SaRouter;
 import cn.dev33.satoken.stp.StpUtil;
 import cn.hutool.json.JSONObject;
+import jakarta.annotation.Nonnull;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpHeaders;
@@ -28,7 +29,9 @@ public class WebCorsConfig implements WebMvcConfigurer {
             "/swagger-ui/**",
             "/v3/api-docs/**",
             "/swagger-ui.html",
-            "/favicon.ico")
+            "/favicon.ico",
+            "/login/doLogin",
+            "/register/**")
         .setBeforeAuth(obj -> {
           SaHolder.getResponse()
               .setHeader("Access-Control-Allow-Origin", "*")
@@ -48,7 +51,7 @@ public class WebCorsConfig implements WebMvcConfigurer {
   }
 
   @Override
-  public void addInterceptors(InterceptorRegistry registry) {
+  public void addInterceptors(@Nonnull InterceptorRegistry registry) {
 
     registry.addInterceptor(new SaInterceptor()).addPathPatterns("/**");
   }

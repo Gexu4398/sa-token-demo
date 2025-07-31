@@ -52,7 +52,7 @@
     <jandex.version>3.3.1</jandex.version>
     <jakarta.persistence-api.version>3.2.0</jakarta.persistence-api.version>
     <sa-token.version>1.44.0</sa-token.version>
-    <argon2-jvm.version>2.12</argon2-jvm.version>
+    <bcprov-jdk18on.version>1.81</bcprov-jdk18on.version>
     <maven.build.timestamp.format>yyyMMddHHmmss</maven.build.timestamp.format>
   </properties>
 
@@ -143,9 +143,9 @@
         <version>${sa-token.version}</version>
       </dependency>
       <dependency>
-        <groupId>de.mkammerer</groupId>
-        <artifactId>argon2-jvm</artifactId>
-        <version>${argon2-jvm.version}</version>
+        <groupId>org.bouncycastle</groupId>
+        <artifactId>bcprov-jdk18on</artifactId>
+        <version>${bcprov-jdk18on.version}</version>
       </dependency>
     </dependencies>
   </dependencyManagement>

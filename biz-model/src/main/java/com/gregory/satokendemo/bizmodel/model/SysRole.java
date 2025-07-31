@@ -59,7 +59,7 @@ public class SysRole {
   @ManyToMany(mappedBy = "roles", fetch = FetchType.LAZY)
   @Exclude
   @Default
-  private Set<UserEntity> userEntities = new HashSet<>();
+  private Set<UserEntity> users = new HashSet<>();
 
   @ManyToMany(fetch = FetchType.LAZY)
   @JoinTable(
