@@ -109,7 +109,7 @@
   </changeSet>
 
   <changeSet id="1753859986242-6" author="singhand">
-    <createTable tableName="user_group_mapping">
+    <createTable tableName="user_group_membership">
       <column name="user_id" type="varchar(255)">
         <constraints nullable="false"/>
       </column>
@@ -118,17 +118,17 @@
       </column>
     </createTable>
 
-    <addPrimaryKey columnNames="user_id, group_id" tableName="user_group_mapping"
-                   constraintName="pk_user_entity_sys_group"/>
+    <addPrimaryKey columnNames="user_id, group_id" tableName="user_group_membership"
+                   constraintName="pk_user_group_membership"/>
 
-    <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="user_group_mapping"
-                             constraintName="fk_user_group_mapping_user"
+    <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="user_group_membership"
+                             constraintName="fk_user_group_membership_user"
                              deferrable="false"
                              initiallyDeferred="false"
                              referencedColumnNames="id" referencedTableName="user_entity"/>
 
-    <addForeignKeyConstraint baseColumnNames="group_id" baseTableName="user_group_mapping"
-                             constraintName="fk_user_group_mapping_group"
+    <addForeignKeyConstraint baseColumnNames="group_id" baseTableName="user_group_membership"
+                             constraintName="fk_user_group_membership_group"
                              deferrable="false"
                              initiallyDeferred="false"
                              referencedColumnNames="id" referencedTableName="sys_group"/>

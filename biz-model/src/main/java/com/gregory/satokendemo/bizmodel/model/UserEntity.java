@@ -106,7 +106,7 @@ public class UserEntity {
   private Set<SysRole> roles = new HashSet<>();
 
   @ManyToMany(fetch = FetchType.LAZY)
-  @JoinTable(name = "user_group_mapping",
+  @JoinTable(name = "user_group_membership",
       joinColumns = @JoinColumn(name = "user_id"),
       inverseJoinColumns = @JoinColumn(name = "group_id"))
   @Exclude
