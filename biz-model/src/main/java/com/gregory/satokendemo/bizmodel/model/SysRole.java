@@ -61,15 +61,15 @@ public class SysRole {
   @Default
   private Set<UserEntity> users = new HashSet<>();
 
-  @ManyToMany(fetch = FetchType.LAZY)
+  @ManyToMany(fetch = FetchType.EAGER)
   @JoinTable(
-      name = "sys_role_sys_permission",
-      joinColumns = @JoinColumn(name = "sys_role_id"),
-      inverseJoinColumns = @JoinColumn(name = "sys_permission_id")
+      name = "scope_mapping",
+      joinColumns = @JoinColumn(name = "role_id"),
+      inverseJoinColumns = @JoinColumn(name = "scope_id")
   )
   @Exclude
   @Default
-  private Set<SysPermission> permissions = new HashSet<>();
+  private Set<ClientScope> scopes = new HashSet<>();
 
   @Column(name = "created_at")
   @CreationTimestamp

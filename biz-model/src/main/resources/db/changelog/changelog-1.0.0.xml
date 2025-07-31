@@ -38,7 +38,7 @@
   </changeSet>
 
   <changeSet id="1753859986242-3" author="singhand">
-    <createTable tableName="sys_permission">
+    <createTable tableName="client_scope">
       <column name="id" type="varchar(255)">
         <constraints primaryKey="true" nullable="false"/>
       </column>
@@ -85,78 +85,80 @@
   </changeSet>
 
   <changeSet id="1753859986242-5" author="singhand">
-    <createTable tableName="user_entity_sys_role">
-      <column name="user_entity_id" type="varchar(255)">
+    <createTable tableName="user_role_mapping">
+      <column name="user_id" type="varchar(255)">
         <constraints nullable="false"/>
       </column>
-      <column name="sys_role_id" type="varchar(255)">
+      <column name="role_id" type="varchar(255)">
         <constraints nullable="false"/>
       </column>
     </createTable>
 
-    <addPrimaryKey columnNames="user_entity_id, sys_role_id" tableName="user_entity_sys_role"
-                   constraintName="pk_user_entity_sys_role"/>
+    <addPrimaryKey columnNames="user_id, role_id" tableName="user_role_mapping"
+                   constraintName="pk_user_role_mapping"/>
 
-    <addForeignKeyConstraint baseColumnNames="user_entity_id" baseTableName="user_entity_sys_role"
-                             constraintName="fk_user_entity_sys_role_user_entity" deferrable="false"
+    <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="user_role_mapping"
+                             constraintName="fk_user_role_mapping_user" deferrable="false"
                              initiallyDeferred="false"
                              referencedColumnNames="id" referencedTableName="user_entity"/>
 
-    <addForeignKeyConstraint baseColumnNames="sys_role_id" baseTableName="user_entity_sys_role"
-                             constraintName="fk_user_entity_sys_role_sys_role" deferrable="false"
+    <addForeignKeyConstraint baseColumnNames="role_id" baseTableName="user_role_mapping"
+                             constraintName="fk_user_role_mapping_role" deferrable="false"
                              initiallyDeferred="false"
                              referencedColumnNames="id" referencedTableName="sys_role"/>
   </changeSet>
 
   <changeSet id="1753859986242-6" author="singhand">
-    <createTable tableName="user_entity_sys_group">
-      <column name="user_entity_id" type="varchar(255)">
+    <createTable tableName="user_group_mapping">
+      <column name="user_id" type="varchar(255)">
         <constraints nullable="false"/>
       </column>
-      <column name="sys_group_id" type="varchar(255)">
+      <column name="group_id" type="varchar(255)">
         <constraints nullable="false"/>
       </column>
     </createTable>
 
-    <addPrimaryKey columnNames="user_entity_id, sys_group_id" tableName="user_entity_sys_group"
+    <addPrimaryKey columnNames="user_id, group_id" tableName="user_group_mapping"
                    constraintName="pk_user_entity_sys_group"/>
 
-    <addForeignKeyConstraint baseColumnNames="user_entity_id" baseTableName="user_entity_sys_group"
-                             constraintName="fk_user_entity_sys_group_user_entity"
+    <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="user_group_mapping"
+                             constraintName="fk_user_group_mapping_user"
                              deferrable="false"
                              initiallyDeferred="false"
                              referencedColumnNames="id" referencedTableName="user_entity"/>
 
-    <addForeignKeyConstraint baseColumnNames="sys_group_id" baseTableName="user_entity_sys_group"
-                             constraintName="fk_user_entity_sys_group_sys_group" deferrable="false"
+    <addForeignKeyConstraint baseColumnNames="group_id" baseTableName="user_group_mapping"
+                             constraintName="fk_user_group_mapping_group"
+                             deferrable="false"
                              initiallyDeferred="false"
                              referencedColumnNames="id" referencedTableName="sys_group"/>
   </changeSet>
 
   <changeSet id="1753859986242-7" author="singhand">
-    <createTable tableName="sys_role_sys_permission">
-      <column name="sys_role_id" type="varchar(255)">
+    <createTable tableName="scope_mapping">
+      <column name="role_id" type="varchar(255)">
         <constraints nullable="false"/>
       </column>
-      <column name="sys_permission_id" type="varchar(255)">
+      <column name="scope_id" type="varchar(255)">
         <constraints nullable="false"/>
       </column>
     </createTable>
 
-    <addPrimaryKey columnNames="sys_role_id, sys_permission_id" tableName="sys_role_sys_permission"
-                   constraintName="pk_sys_role_sys_permission"/>
+    <addPrimaryKey columnNames="role_id, scope_id" tableName="scope_mapping"
+                   constraintName="pk_scope_mapping"/>
 
-    <addForeignKeyConstraint baseColumnNames="sys_role_id" baseTableName="sys_role_sys_permission"
-                             constraintName="fk_sys_role_sys_permission_sys_role" deferrable="false"
+    <addForeignKeyConstraint baseColumnNames="role_id" baseTableName="scope_mapping"
+                             constraintName="fk_scope_mapping_role"
+                             deferrable="false"
                              initiallyDeferred="false"
                              referencedColumnNames="id" referencedTableName="sys_role"/>
 
-    <addForeignKeyConstraint baseColumnNames="sys_permission_id"
-                             baseTableName="sys_role_sys_permission"
-                             constraintName="fk_sys_role_sys_permission_sys_permission"
+    <addForeignKeyConstraint baseColumnNames="scope_id"
+                             baseTableName="scope_mapping"
+                             constraintName="fk_scope_mapping_scope"
                              deferrable="false"
                              initiallyDeferred="false"
-                             referencedColumnNames="id" referencedTableName="sys_permission"/>
+                             referencedColumnNames="id" referencedTableName="client_scope"/>
   </changeSet>
 
 </databaseChangeLog>

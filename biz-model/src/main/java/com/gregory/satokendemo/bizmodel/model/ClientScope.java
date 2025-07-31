@@ -31,9 +31,9 @@ import org.hibernate.annotations.UpdateTimestamp;
 @ToString
 @Entity
 @Builder
-@Table(name = "sys_permission")
+@Table(name = "client_scope")
 @Schema(description = "角色权限范围")
-public class SysPermission {
+public class ClientScope {
 
   @Id
   @GeneratedValue(strategy = GenerationType.UUID)
@@ -48,7 +48,7 @@ public class SysPermission {
   @Schema(description = "角色权限范围描述")
   private String description;
 
-  @ManyToMany(mappedBy = "permissions")
+  @ManyToMany(mappedBy = "scopes")
   @Exclude
   @Default
   private Set<SysRole> roles = new HashSet<>();
@@ -70,7 +70,7 @@ public class SysPermission {
     if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) {
       return false;
     }
-    SysPermission v = (SysPermission) o;
+    ClientScope v = (ClientScope) o;
     return id != null && Objects.equals(id, v.id);
   }
 

@@ -97,18 +97,18 @@ public class UserEntity {
   private String status = STATUS_NORMAL;
 
   @ManyToMany(fetch = FetchType.LAZY)
-  @JoinTable(name = "user_entity_sys_role",
-      joinColumns = @JoinColumn(name = "user_entity_id"),
-      inverseJoinColumns = @JoinColumn(name = "sys_role_id"))
+  @JoinTable(name = "user_role_mapping",
+      joinColumns = @JoinColumn(name = "user_id"),
+      inverseJoinColumns = @JoinColumn(name = "role_id"))
   @Exclude
   @JsonIgnore
   @Default
   private Set<SysRole> roles = new HashSet<>();
 
   @ManyToMany(fetch = FetchType.LAZY)
-  @JoinTable(name = "user_entity_sys_group",
-      joinColumns = @JoinColumn(name = "user_entity_id"),
-      inverseJoinColumns = @JoinColumn(name = "sys_group_id"))
+  @JoinTable(name = "user_group_mapping",
+      joinColumns = @JoinColumn(name = "user_id"),
+      inverseJoinColumns = @JoinColumn(name = "group_id"))
   @Exclude
   @JsonIgnore
   @Default
