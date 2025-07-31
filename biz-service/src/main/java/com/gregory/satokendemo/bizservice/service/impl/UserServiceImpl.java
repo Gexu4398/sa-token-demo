@@ -61,13 +61,16 @@ public class UserServiceImpl implements UserService {
     final var hashedPassword = argon2PasswordEncoder.encode(newUserRequest.getPassword());
     ur.setPassword(hashedPassword);
 
-    if (StrUtil.isNotBlank(newUserRequest.getGroupId())) {
-      final var sysGroup = sysGroupRepository.findById(newUserRequest.getGroupId())
+    final var groupId = newUserRequest.getGroupId();
+    if (StrUtil.isNotBlank(groupId)) {
+      final var sysGroup = sysGroupRepository.findById(groupId)
           .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "用户组不存在"));
       ur.addGroup(sysGroup);
     }
-    if (StrUtil.isNotBlank(newUserRequest.getRoleId())) {
-      final var sysRole = sysRoleRepository.findById(newUserRequest.getRoleId())
+
+    final var roleId = newUserRequest.getRoleId();
+    if (StrUtil.isNotBlank(roleId)) {
+      final var sysRole = sysRoleRepository.findById(roleId)
           .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "角色不存在"));
       ur.addRole(sysRole);
     }
@@ -98,8 +101,9 @@ public class UserServiceImpl implements UserService {
     final var hashedPassword = argon2PasswordEncoder.encode(registerUserRequest.getPassword());
     ur.setPassword(hashedPassword);
 
-    if (StrUtil.isNotBlank(registerUserRequest.getGroupId())) {
-      final var sysGroup = sysGroupRepository.findById(registerUserRequest.getGroupId())
+    final var groupId = registerUserRequest.getGroupId();
+    if (StrUtil.isNotBlank(groupId)) {
+      final var sysGroup = sysGroupRepository.findById(groupId)
           .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "用户组不存在"));
       ur.addGroup(sysGroup);
     }
