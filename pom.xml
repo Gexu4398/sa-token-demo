@@ -152,6 +152,16 @@
         <artifactId>sa-token-redis-template</artifactId>
         <version>${sa-token.version}</version>
       </dependency>
+      <dependency>
+        <groupId>cn.dev33</groupId>
+        <artifactId>sa-token-sso</artifactId>
+        <version>${sa-token.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>cn.dev33</groupId>
+        <artifactId>sa-token-forest</artifactId>
+        <version>${sa-token.version}</version>
+      </dependency>
     </dependencies>
   </dependencyManagement>
 
