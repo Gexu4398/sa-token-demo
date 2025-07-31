@@ -25,7 +25,7 @@ public class LoginAuthServiceImpl implements LoginAuthService {
   }
 
   @Override
-  public void doLogin(String username, String password) {
+  public String doLogin(String username, String password) {
 
     final var user = userEntityRepository
         .findByUsername(username)
@@ -36,5 +36,7 @@ public class LoginAuthServiceImpl implements LoginAuthService {
     }
 
     StpUtil.login(user.getId());
+
+    return StpUtil.getTokenValueByLoginId(user.getId());
   }
 }

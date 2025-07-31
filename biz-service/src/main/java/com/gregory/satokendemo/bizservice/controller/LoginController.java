@@ -1,5 +1,7 @@
 package com.gregory.satokendemo.bizservice.controller;
 
+import cn.dev33.satoken.annotation.SaCheckLogin;
+import cn.dev33.satoken.annotation.SaCheckRole;
 import cn.dev33.satoken.stp.SaTokenInfo;
 import cn.dev33.satoken.stp.StpUtil;
 import com.gregory.satokendemo.bizservice.model.LoginRequest;
@@ -31,11 +33,12 @@ public class LoginController {
 
   @Operation(summary = "登录")
   @PostMapping("doLogin")
-  public void doLogin(@Valid @RequestBody LoginRequest loginRequest) {
+  public String doLogin(@Valid @RequestBody LoginRequest loginRequest) {
 
-    loginAuthService.doLogin(loginRequest.getUsername(), loginRequest.getPassword());
+    return loginAuthService.doLogin(loginRequest.getUsername(), loginRequest.getPassword());
   }
 
+  @SaCheckRole("super-admin")
   @Operation(summary = "是否登录")
   @PostMapping("isLogin")
   public boolean isLogin() {
@@ -45,6 +48,7 @@ public class LoginController {
 
   @Operation(summary = "获取token信息")
   @GetMapping("tokenInfo")
+  @SaCheckLogin
   public SaTokenInfo tokenInfo() {
 
     return StpUtil.getTokenInfo();
@@ -52,6 +56,7 @@ public class LoginController {
 
   @Operation(summary = "登出")
   @PostMapping("logout")
+  @SaCheckLogin
   public void logout() {
 
     StpUtil.logout();
@@ -59,6 +64,7 @@ public class LoginController {
 
   @Operation(summary = "获取登录用户ID")
   @GetMapping("loginId")
+  @SaCheckLogin
   public String getLoginId() {
 
     return StpUtil.getLoginIdAsString();

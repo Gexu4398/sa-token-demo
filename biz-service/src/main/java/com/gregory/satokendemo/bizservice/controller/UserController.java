@@ -1,5 +1,6 @@
 package com.gregory.satokendemo.bizservice.controller;
 
+import cn.dev33.satoken.annotation.SaCheckPermission;
 import com.gregory.satokendemo.bizmodel.model.UserEntity;
 import com.gregory.satokendemo.bizservice.model.NewUserRequest;
 import com.gregory.satokendemo.bizservice.service.UserService;
@@ -31,6 +32,7 @@ public class UserController {
   @Operation(summary = "新建用户")
   @PostMapping
   @Transactional("bizTransactionManager")
+  @SaCheckPermission("user:crud")
   public UserEntity addUser(@Valid @RequestBody NewUserRequest newUserRequest) {
 
     return userService.addUser(newUserRequest);
