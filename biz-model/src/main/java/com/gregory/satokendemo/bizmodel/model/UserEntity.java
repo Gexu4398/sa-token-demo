@@ -71,6 +71,7 @@ public class UserEntity {
 
   @Column(nullable = false, columnDefinition = "text")
   @Schema(description = "密码")
+  @JsonIgnore
   private String password;
 
   @Column(name = "first_name")
