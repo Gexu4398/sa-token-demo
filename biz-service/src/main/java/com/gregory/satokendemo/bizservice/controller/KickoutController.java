@@ -17,15 +17,15 @@ public class KickoutController {
 
   @Operation(summary = "指定账号强制注销")
   @PostMapping("logout")
-  public void logout(@RequestParam Long userId) {
+  public void logout(@RequestParam String loginId) {
 
-    StpUtil.logout(userId);
+    StpUtil.logout(loginId);
   }
 
   @Operation(summary = "指定账号踢下线")
   @PostMapping("kickout")
-  public void kickout(@RequestParam Long userId) {
+  public void kickout(@RequestParam String loginId) {
 
-    StpUtil.kickout(userId);
+    StpUtil.kickout(loginId);
   }
 }
