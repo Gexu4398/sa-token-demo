@@ -1,2 +1,3 @@
 *
 !/biz-service/target/biz-service.jar
+!/sso-service/target/sso-service.jar
