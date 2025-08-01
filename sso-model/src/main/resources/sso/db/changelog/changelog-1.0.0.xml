@@ -5,7 +5,7 @@
                     http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd"
                    objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
 
-  <changeSet id="1753859986242-1" author="singhand">
+  <changeSet id="1753859986242-1" author="gregory">
     <createTable tableName="sys_group">
       <column name="id" type="varchar(255)">
         <constraints primaryKey="true" nullable="false"/>
@@ -20,7 +20,7 @@
     </createTable>
   </changeSet>
 
-  <changeSet id="1753859986242-2" author="singhand">
+  <changeSet id="1753859986242-2" author="gregory">
     <createTable tableName="sys_role">
       <column name="id" type="varchar(255)">
         <constraints primaryKey="true" nullable="false"/>
@@ -37,7 +37,7 @@
     </createTable>
   </changeSet>
 
-  <changeSet id="1753859986242-3" author="singhand">
+  <changeSet id="1753859986242-3" author="gregory">
     <createTable tableName="client_scope">
       <column name="id" type="varchar(255)">
         <constraints primaryKey="true" nullable="false"/>
@@ -51,7 +51,7 @@
     </createTable>
   </changeSet>
 
-  <changeSet id="1753859986242-4" author="singhand">
+  <changeSet id="1753859986242-4" author="gregory">
     <createTable tableName="user_entity">
       <column name="id" type="varchar(255)">
         <constraints primaryKey="true" nullable="false"/>
@@ -84,7 +84,7 @@
     </createIndex>
   </changeSet>
 
-  <changeSet id="1753859986242-5" author="singhand">
+  <changeSet id="1753859986242-5" author="gregory">
     <createTable tableName="user_role_mapping">
       <column name="user_id" type="varchar(255)">
         <constraints nullable="false"/>
@@ -108,7 +108,7 @@
                              referencedColumnNames="id" referencedTableName="sys_role"/>
   </changeSet>
 
-  <changeSet id="1753859986242-6" author="singhand">
+  <changeSet id="1753859986242-6" author="gregory">
     <createTable tableName="user_group_membership">
       <column name="user_id" type="varchar(255)">
         <constraints nullable="false"/>
@@ -134,7 +134,7 @@
                              referencedColumnNames="id" referencedTableName="sys_group"/>
   </changeSet>
 
-  <changeSet id="1753859986242-7" author="singhand">
+  <changeSet id="1753859986242-7" author="gregory">
     <createTable tableName="scope_mapping">
       <column name="role_id" type="varchar(255)">
         <constraints nullable="false"/>
