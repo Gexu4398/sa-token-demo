@@ -18,6 +18,12 @@
       <column name="created_at" type="TIMESTAMP WITHOUT TIME ZONE"/>
       <column name="updated_at" type="TIMESTAMP WITHOUT TIME ZONE"/>
     </createTable>
+
+    <addForeignKeyConstraint baseColumnNames="parent_id" baseTableName="sys_group"
+                             constraintName="fk_sys_group_parent" deferrable="false"
+                             initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                             referencedColumnNames="id" referencedTableName="sys_group"
+                             validate="true"/>
   </changeSet>
 
   <changeSet id="1753859986242-2" author="gregory">
@@ -99,13 +105,15 @@
 
     <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="user_role_mapping"
                              constraintName="fk_user_role_mapping_user" deferrable="false"
-                             initiallyDeferred="false"
-                             referencedColumnNames="id" referencedTableName="user_entity"/>
+                             initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                             referencedColumnNames="id" referencedTableName="user_entity"
+                             validate="true"/>
 
     <addForeignKeyConstraint baseColumnNames="role_id" baseTableName="user_role_mapping"
                              constraintName="fk_user_role_mapping_role" deferrable="false"
-                             initiallyDeferred="false"
-                             referencedColumnNames="id" referencedTableName="sys_role"/>
+                             initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                             referencedColumnNames="id" referencedTableName="sys_role"
+                             validate="true"/>
   </changeSet>
 
   <changeSet id="1753859986242-6" author="gregory">
@@ -124,14 +132,16 @@
     <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="user_group_membership"
                              constraintName="fk_user_group_membership_user"
                              deferrable="false"
-                             initiallyDeferred="false"
-                             referencedColumnNames="id" referencedTableName="user_entity"/>
+                             initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                             referencedColumnNames="id" referencedTableName="user_entity"
+                             validate="true"/>
 
     <addForeignKeyConstraint baseColumnNames="group_id" baseTableName="user_group_membership"
                              constraintName="fk_user_group_membership_group"
                              deferrable="false"
-                             initiallyDeferred="false"
-                             referencedColumnNames="id" referencedTableName="sys_group"/>
+                             initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                             referencedColumnNames="id" referencedTableName="sys_group"
+                             validate="true"/>
   </changeSet>
 
   <changeSet id="1753859986242-7" author="gregory">
@@ -150,15 +160,16 @@
     <addForeignKeyConstraint baseColumnNames="role_id" baseTableName="scope_mapping"
                              constraintName="fk_scope_mapping_role"
                              deferrable="false"
-                             initiallyDeferred="false"
-                             referencedColumnNames="id" referencedTableName="sys_role"/>
+                             initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                             referencedColumnNames="id" referencedTableName="sys_role"
+                             validate="true"/>
 
-    <addForeignKeyConstraint baseColumnNames="scope_id"
-                             baseTableName="scope_mapping"
+    <addForeignKeyConstraint baseColumnNames="scope_id" baseTableName="scope_mapping"
                              constraintName="fk_scope_mapping_scope"
                              deferrable="false"
-                             initiallyDeferred="false"
-                             referencedColumnNames="id" referencedTableName="client_scope"/>
+                             initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                             referencedColumnNames="id" referencedTableName="client_scope"
+                             validate="true"/>
   </changeSet>
 
 </databaseChangeLog>
