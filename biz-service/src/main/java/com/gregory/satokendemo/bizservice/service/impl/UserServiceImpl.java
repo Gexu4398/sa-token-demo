@@ -33,6 +33,13 @@ public class UserServiceImpl implements UserService {
   }
 
   @Override
+  public UserEntity getUserByName(String username) {
+
+    return userEntityRepository.findByUsername(username)
+        .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "用户不存在"));
+  }
+
+  @Override
   public UserEntity registerUser(@Nonnull RegisterUserRequest registerUserRequest) {
 
     if (userEntityRepository.existsByUsername(registerUserRequest.getUsername())) {

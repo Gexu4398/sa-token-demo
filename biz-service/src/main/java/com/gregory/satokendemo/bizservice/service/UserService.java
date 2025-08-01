@@ -5,5 +5,7 @@ import com.gregory.satokendemo.ssomodel.model.UserEntity;
 
 public interface UserService {
 
+  UserEntity getUserByName(String username);
+
   UserEntity registerUser(RegisterUserRequest registerUserRequest);
 }
