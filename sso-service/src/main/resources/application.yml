@@ -39,8 +39,6 @@ management:
 springdoc:
   swagger-ui:
     path: /swagger-ui.html
-    oauth:
-      client-id: console-cli
     tags-sorter: alpha
     doc-expansion: alpha
 
@@ -59,11 +57,15 @@ sa-token:
   is-log: true
   sso-server:
     ticket-timeout: 300
+    home-route: /home
+    allow-anon-client: true
+    allow-url: "*"
     secret-key: kQwIOrYvnXmSDkwEiFngrKidMcdrgKor
     clients:
-      sso-client:
+      console-cli:
         client: console-cli
         allow-url: "*"
+        push-url: http://localhost:8081/sso/pushC
         secret-key: kQwIOrYvnXmSDkwEiFngrKidMcdrgKor
 
 app:

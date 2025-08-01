@@ -54,6 +54,7 @@ public class WebCorsConfig implements WebMvcConfigurer {
   @Override
   public void addInterceptors(@Nonnull InterceptorRegistry registry) {
 
-    registry.addInterceptor(new SaInterceptor()).addPathPatterns("/**");
+    registry.addInterceptor(new SaInterceptor()).addPathPatterns("/**")
+        .excludePathPatterns("/");
   }
 }
