@@ -1,13 +1,14 @@
 package com.gregory.satokendemo.bizservice.service.impl;
 
 import cn.hutool.core.util.StrUtil;
+import com.gregory.satokendemo.bizservice.model.NewUserRequest;
+import com.gregory.satokendemo.bizservice.model.RegisterUserRequest;
+import com.gregory.satokendemo.bizservice.model.UpdateUserRequest;
+import com.gregory.satokendemo.bizservice.service.UserService;
 import com.gregory.satokendemo.ssomodel.model.UserEntity;
 import com.gregory.satokendemo.ssomodel.repository.SysGroupRepository;
 import com.gregory.satokendemo.ssomodel.repository.SysRoleRepository;
 import com.gregory.satokendemo.ssomodel.repository.UserEntityRepository;
-import com.gregory.satokendemo.bizservice.model.NewUserRequest;
-import com.gregory.satokendemo.bizservice.model.RegisterUserRequest;
-import com.gregory.satokendemo.bizservice.service.UserService;
 import jakarta.annotation.Nonnull;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -95,6 +96,25 @@ public class UserServiceImpl implements UserService {
   }
 
   @Override
+  public UserEntity updateUser(String id, @Nonnull UpdateUserRequest updateUserRequest) {
+
+    final var user = getUser(id);
+
+    final var email = updateUserRequest.getEmail();
+
+    if (StrUtil.isNotBlank(email) && !StrUtil.equals(email, user.getEmail())) {
+      validateEmailUnique(email, user.getId());
+    }
+
+    user.setFirstName(updateUserRequest.getName());
+    user.setEmail(email);
+    user.setPhoneNumber(updateUserRequest.getPhoneNumber());
+    user.setPicture(updateUserRequest.getPicture());
+
+    return userEntityRepository.save(user);
+  }
+
+  @Override
   public UserEntity registerUser(@Nonnull RegisterUserRequest registerUserRequest) {
 
     if (userEntityRepository.existsByUsername(registerUserRequest.getUsername())) {
@@ -146,5 +166,14 @@ public class UserServiceImpl implements UserService {
       it.setStatus(UserEntity.STATUS_DISABLED);
     });
     userEntityRepository.saveAll(userEntities);
+  }
+
+  private void validateEmailUnique(String email, String userId) {
+
+    userEntityRepository.findByEmail(email)
+        .filter(it -> !it.getId().equals(userId))
+        .ifPresent(it -> {
+          throw new ResponseStatusException(HttpStatus.CONFLICT, "邮箱已存在");
+        });
   }
 }

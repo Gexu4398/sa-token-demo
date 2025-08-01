@@ -1,12 +1,14 @@
 package com.gregory.satokendemo.ssomodel.repository;
 
 import com.gregory.satokendemo.ssomodel.model.SysRole;
+import java.util.List;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
-import java.util.List;
 
 @Repository
 public interface SysRoleRepository extends BaseRepository<SysRole, String> {
+
+  SysRole findByName(String name);
 
   @Query("""
       select distinct r.name from SysRole r
