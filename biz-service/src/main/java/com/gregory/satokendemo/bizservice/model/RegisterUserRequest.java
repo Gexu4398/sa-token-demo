@@ -16,8 +16,11 @@ public class RegisterUserRequest {
   @Schema(description = "密码")
   private String password;
 
-  @Schema(description = "姓名")
-  private String name;
+  @Schema(description = "姓")
+  private String firstName;
+
+  @Schema(description = "名")
+  private String lastName;
 
   @Schema(description = "手机号码")
   private String phoneNumber;

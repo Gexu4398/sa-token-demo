@@ -1,8 +1,8 @@
 package com.gregory.satokendemo.bizservice.controller;
 
+import com.gregory.satokendemo.bizservice.service.UserService;
 import com.gregory.satokendemo.ssomodel.model.UserEntity;
 import com.gregory.satokendemo.bizservice.model.RegisterUserRequest;
-import com.gregory.satokendemo.bizservice.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;

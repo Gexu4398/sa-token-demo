@@ -1,6 +1,5 @@
-package com.gregory.satokendemo.bizservice.model;
+package com.gregory.satokendemo.ssoservice.model;
 
-import com.gregory.satokendemo.bizservice.validator.NotSuperAdminRoleId;
 import lombok.Builder;
 import lombok.Data;
 
@@ -18,6 +17,5 @@ public class UpdateUserRequest {
 
   private String groupId;
 
-  @NotSuperAdminRoleId
   private String roleId;
 }

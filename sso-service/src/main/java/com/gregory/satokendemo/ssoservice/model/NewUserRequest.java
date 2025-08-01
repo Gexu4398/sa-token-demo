@@ -1,6 +1,5 @@
-package com.gregory.satokendemo.bizservice.model;
+package com.gregory.satokendemo.ssoservice.model;
 
-import com.gregory.satokendemo.bizservice.validator.NotSuperAdminUsername;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
@@ -15,15 +14,17 @@ import lombok.NoArgsConstructor;
 public class NewUserRequest {
 
   @NotBlank
-  @NotSuperAdminUsername
   @Schema(description = "用户名")
   private String username;
 
   @Schema(description = "密码")
   private String password;
 
-  @Schema(description = "姓名")
-  private String name;
+  @Schema(description = "姓")
+  private String firstName;
+
+  @Schema(description = "名")
+  private String lastName;
 
   @Schema(description = "邮箱")
   private String email;

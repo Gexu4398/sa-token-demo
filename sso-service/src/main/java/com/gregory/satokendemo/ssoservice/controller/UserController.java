@@ -1,18 +1,13 @@
-package com.gregory.satokendemo.bizservice.controller;
+package com.gregory.satokendemo.ssoservice.controller;
 
-import cn.dev33.satoken.annotation.SaCheckLogin;
-import cn.dev33.satoken.annotation.SaCheckPermission;
-import com.gregory.satokendemo.bizservice.model.NewUserRequest;
-import com.gregory.satokendemo.bizservice.model.UpdateUserRequest;
-import com.gregory.satokendemo.bizservice.service.UserService;
-import com.gregory.satokendemo.bizservice.validator.NotContainsSuperAdminUserId;
-import com.gregory.satokendemo.bizservice.validator.NotSuperAdminUserId;
 import com.gregory.satokendemo.ssomodel.model.UserEntity;
+import com.gregory.satokendemo.ssoservice.model.NewUserRequest;
+import com.gregory.satokendemo.ssoservice.model.UpdateUserRequest;
+import com.gregory.satokendemo.ssoservice.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import java.util.List;
-import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
@@ -40,7 +35,6 @@ public class UserController {
 
   @Operation(summary = "获取用户详情")
   @GetMapping("{id}")
-  @SaCheckLogin
   public UserEntity getUser(@PathVariable("id") String id) {
 
     return userService.getUser(id);
@@ -48,7 +42,6 @@ public class UserController {
 
   @Operation(summary = "新建用户")
   @PostMapping
-  @SaCheckPermission("user:crud")
   @Transactional("ssoTransactionManager")
   public UserEntity addUser(@Valid @RequestBody NewUserRequest newUserRequest) {
 
@@ -57,7 +50,6 @@ public class UserController {
 
   @Operation(summary = "编辑用户")
   @PutMapping("{id}")
-  @SaCheckPermission("user:crud")
   @Transactional("ssoTransactionManager")
   public UserEntity updateUser(@PathVariable("id") String id,
       @Valid @RequestBody UpdateUserRequest updateUserRequest) {
@@ -65,22 +57,18 @@ public class UserController {
     return userService.updateUser(id, updateUserRequest);
   }
 
-  @SneakyThrows
   @PostMapping("/{id}:enable")
   @Operation(summary = "启用用户")
-  @SaCheckPermission("user:crud")
   @Transactional("ssoTransactionManager")
-  public void enableUser(@NotSuperAdminUserId @PathVariable("id") String id) {
+  public void enableUser(@PathVariable("id") String id) {
 
     userService.enableUser(id);
   }
 
-  @SneakyThrows
   @PostMapping("/{id}:disable")
   @Operation(summary = "停用用户")
-  @SaCheckPermission("user:crud")
   @Transactional("ssoTransactionManager")
-  public void disableUser(@NotContainsSuperAdminUserId @PathVariable("id") List<String> ids) {
+  public void disableUser(@PathVariable("id") List<String> ids) {
 
     userService.disableUser(ids);
   }
