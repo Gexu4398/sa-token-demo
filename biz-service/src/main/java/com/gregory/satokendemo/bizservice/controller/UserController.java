@@ -1,5 +1,6 @@
 package com.gregory.satokendemo.bizservice.controller;
 
+import cn.dev33.satoken.annotation.SaCheckLogin;
 import cn.dev33.satoken.annotation.SaCheckPermission;
 import com.gregory.satokendemo.bizmodel.model.UserEntity;
 import com.gregory.satokendemo.bizservice.model.NewUserRequest;
@@ -14,6 +15,7 @@ import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -34,9 +36,17 @@ public class UserController {
     this.userService = userService;
   }
 
+  @Operation(summary = "获取用户详情")
+  @GetMapping("{id}")
+  @SaCheckLogin
+  public UserEntity getUser(@PathVariable("id") String id) {
+
+    return userService.getUser(id);
+  }
+
   @Operation(summary = "新建用户")
   @PostMapping
-//  @SaCheckPermission("user:crud")
+  @SaCheckPermission("user:crud")
   @Transactional("bizTransactionManager")
   public UserEntity addUser(@Valid @RequestBody NewUserRequest newUserRequest) {
 
