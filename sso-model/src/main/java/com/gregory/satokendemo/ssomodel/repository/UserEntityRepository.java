@@ -1,6 +1,6 @@
-package com.gregory.satokendemo.bizmodel.repository;
+package com.gregory.satokendemo.ssomodel.repository;
 
-import com.gregory.satokendemo.bizmodel.model.UserEntity;
+import com.gregory.satokendemo.ssomodel.model.UserEntity;
 import java.util.Optional;
 import org.springframework.stereotype.Repository;
 

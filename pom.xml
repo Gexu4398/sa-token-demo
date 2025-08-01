@@ -18,8 +18,9 @@
   <url/>
   <modules>
     <module>biz-service</module>
-    <module>biz-model</module>
+    <module>sso-model</module>
     <module>sso-service</module>
+    <module>biz-model</module>
   </modules>
 
   <profiles>

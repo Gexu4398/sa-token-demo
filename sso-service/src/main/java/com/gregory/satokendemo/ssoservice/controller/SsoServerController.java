@@ -3,7 +3,7 @@ package com.gregory.satokendemo.ssoservice.controller;
 import cn.dev33.satoken.sso.processor.SaSsoServerProcessor;
 import cn.dev33.satoken.sso.template.SaSsoServerTemplate;
 import cn.dev33.satoken.util.SaResult;
-import com.gregory.satokendemo.bizmodel.repository.UserEntityRepository;
+import com.gregory.satokendemo.ssomodel.repository.UserEntityRepository;
 import com.gregory.satokendemo.ssoservice.service.SsoServerService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.annotation.Nonnull;

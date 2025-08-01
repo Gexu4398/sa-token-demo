@@ -1,10 +1,10 @@
 package com.gregory.satokendemo.bizservice.service.impl;
 
 import cn.hutool.core.util.StrUtil;
-import com.gregory.satokendemo.bizmodel.model.UserEntity;
-import com.gregory.satokendemo.bizmodel.repository.SysGroupRepository;
-import com.gregory.satokendemo.bizmodel.repository.SysRoleRepository;
-import com.gregory.satokendemo.bizmodel.repository.UserEntityRepository;
+import com.gregory.satokendemo.ssomodel.model.UserEntity;
+import com.gregory.satokendemo.ssomodel.repository.SysGroupRepository;
+import com.gregory.satokendemo.ssomodel.repository.SysRoleRepository;
+import com.gregory.satokendemo.ssomodel.repository.UserEntityRepository;
 import com.gregory.satokendemo.bizservice.model.NewUserRequest;
 import com.gregory.satokendemo.bizservice.model.RegisterUserRequest;
 import com.gregory.satokendemo.bizservice.service.UserService;

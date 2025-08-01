@@ -2,8 +2,8 @@ package com.gregory.satokendemo.ssoservice.service.impl;
 
 import cn.dev33.satoken.stp.SaTokenInfo;
 import cn.dev33.satoken.stp.StpUtil;
-import com.gregory.satokendemo.bizmodel.model.UserEntity;
-import com.gregory.satokendemo.bizmodel.repository.UserEntityRepository;
+import com.gregory.satokendemo.ssomodel.model.UserEntity;
+import com.gregory.satokendemo.ssomodel.repository.UserEntityRepository;
 import com.gregory.satokendemo.ssoservice.service.SsoServerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

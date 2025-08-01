@@ -70,9 +70,9 @@ sa-token:
 
 app:
   datasource:
-    biz:
-      url: jdbc:postgresql://${POSTGRESQL_HOST:localhost}:5432/sa
-      jdbcUrl: jdbc:postgresql://${POSTGRESQL_HOST:localhost}:5432/sa
+    sso:
+      url: jdbc:postgresql://${POSTGRESQL_HOST:localhost}:5432/sso
+      jdbcUrl: jdbc:postgresql://${POSTGRESQL_HOST:localhost}:5432/sso
       username: root
       password: ${POSTGRESQL_ROOT_PASSWORD:example}
       driver-class-name: org.postgresql.Driver
@@ -80,4 +80,5 @@ app:
         maximum-pool-size: 100
         minimum-idle: 30
       liquibase:
-        change-log: db/changelog/changelog-master.xml
+        enabled: true
+        change-log: sso/db/changelog/changelog-master.xml

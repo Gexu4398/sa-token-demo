@@ -1,6 +1,6 @@
 package com.gregory.satokendemo.bizservice.controller;
 
-import com.gregory.satokendemo.bizmodel.model.UserEntity;
+import com.gregory.satokendemo.ssomodel.model.UserEntity;
 import com.gregory.satokendemo.bizservice.model.RegisterUserRequest;
 import com.gregory.satokendemo.bizservice.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -30,7 +30,7 @@ public class RegisterController {
 
   @PostMapping
   @Operation(summary = "新用户注册")
-  @Transactional("bizTransactionManager")
+  @Transactional("ssoTransactionManager")
   public UserEntity register(@Valid @RequestBody RegisterUserRequest registerUserRequest) {
 
     return userService.registerUser(registerUserRequest);

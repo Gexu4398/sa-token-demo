@@ -1,4 +1,4 @@
-package com.gregory.satokendemo.bizmodel.model;
+package com.gregory.satokendemo.ssomodel.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Column;

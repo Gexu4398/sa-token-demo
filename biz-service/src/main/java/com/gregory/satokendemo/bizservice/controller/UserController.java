@@ -2,7 +2,7 @@ package com.gregory.satokendemo.bizservice.controller;
 
 import cn.dev33.satoken.annotation.SaCheckLogin;
 import cn.dev33.satoken.annotation.SaCheckPermission;
-import com.gregory.satokendemo.bizmodel.model.UserEntity;
+import com.gregory.satokendemo.ssomodel.model.UserEntity;
 import com.gregory.satokendemo.bizservice.model.NewUserRequest;
 import com.gregory.satokendemo.bizservice.service.UserService;
 import com.gregory.satokendemo.bizservice.validator.NotContainsSuperAdminUserId;
@@ -47,7 +47,7 @@ public class UserController {
   @Operation(summary = "新建用户")
   @PostMapping
   @SaCheckPermission("user:crud")
-  @Transactional("bizTransactionManager")
+  @Transactional("ssoTransactionManager")
   public UserEntity addUser(@Valid @RequestBody NewUserRequest newUserRequest) {
 
     return userService.addUser(newUserRequest);
@@ -57,7 +57,7 @@ public class UserController {
   @PostMapping("/{id}:enable")
   @Operation(summary = "启用用户")
   @SaCheckPermission("user:crud")
-  @Transactional("bizTransactionManager")
+  @Transactional("ssoTransactionManager")
   public void enableUser(@NotSuperAdminUserId @PathVariable("id") String id) {
 
     userService.enableUser(id);
@@ -67,7 +67,7 @@ public class UserController {
   @PostMapping("/{id}:disable")
   @Operation(summary = "停用用户")
   @SaCheckPermission("user:crud")
-  @Transactional("bizTransactionManager")
+  @Transactional("ssoTransactionManager")
   public void disableUser(@NotContainsSuperAdminUserId @PathVariable("id") List<String> ids) {
 
     userService.disableUser(ids);

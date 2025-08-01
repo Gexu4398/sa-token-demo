@@ -1,6 +1,6 @@
-package com.gregory.satokendemo.bizmodel.repository;
+package com.gregory.satokendemo.ssomodel.repository;
 
-import com.gregory.satokendemo.bizmodel.model.ClientScope;
+import com.gregory.satokendemo.ssomodel.model.ClientScope;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import java.util.List;

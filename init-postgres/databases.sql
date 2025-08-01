@@ -1,1 +1,2 @@
-create database sa encoding 'UTF8' locale_provider 'icu' icu_locale 'zh-u-co-gb2312' template template0;
+create database biz encoding 'UTF8' locale_provider 'icu' icu_locale 'zh-u-co-gb2312' template template0;
+create database sso encoding 'UTF8' locale_provider 'icu' icu_locale 'zh-u-co-gb2312' template template0;

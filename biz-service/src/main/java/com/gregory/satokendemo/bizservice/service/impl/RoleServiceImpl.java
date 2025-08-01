@@ -1,7 +1,7 @@
 package com.gregory.satokendemo.bizservice.service.impl;
 
-import com.gregory.satokendemo.bizmodel.repository.ClientScopeRepository;
-import com.gregory.satokendemo.bizmodel.repository.SysRoleRepository;
+import com.gregory.satokendemo.ssomodel.repository.ClientScopeRepository;
+import com.gregory.satokendemo.ssomodel.repository.SysRoleRepository;
 import com.gregory.satokendemo.bizservice.service.RoleService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;

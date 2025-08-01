@@ -1,6 +1,6 @@
-package com.gregory.satokendemo.bizmodel.repository;
+package com.gregory.satokendemo.ssomodel.repository;
 
-import com.gregory.satokendemo.bizmodel.model.SysGroup;
+import com.gregory.satokendemo.ssomodel.model.SysGroup;
 import org.springframework.stereotype.Repository;
 
 @Repository

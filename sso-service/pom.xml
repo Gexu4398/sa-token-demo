@@ -79,7 +79,7 @@
     </dependency>
     <dependency>
       <groupId>com.gregory.satokendemo</groupId>
-      <artifactId>biz-model</artifactId>
+      <artifactId>sso-model</artifactId>
       <version>${project.version}</version>
     </dependency>
     <dependency>
